@@ -1,0 +1,29 @@
+name: Add MIT License Header
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  add_license:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Add License Headers
+        uses: apache/skywalking-eyes@main
+        with:
+          config: .github/license-config.yml
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m "Added MIT License headers to source files" || echo "No changes to commit"
+          git push
