@@ -1,0 +1,29 @@
+pull_request_rules:
+  - name: Validate Trust Wallet API endpoints
+    conditions:
+      - files~=docs/api/v1/search/assets.md
+      - files~=docs/api/v1/coinstatus/*
+      - files~=docs/api/amber-api/v1/*
+      - files~=docs/api/v2/market/tickers.md
+      - files~=docs/api/v1/assets/listings.md
+      - files~=docs/api/v1/validate.md
+      - files~=docs/api/v1/buycrypto/*
+      - files~=docs/api/v1/sellcrypto/*
+    actions:
+      label:
+        add:
+          - "api-docs"
+      comment:
+        message: |
+          ⚡ Trust Wallet API documentation updated.
+          Please ensure:
+          - Parameters are clearly defined (query, networks, limit).
+          - Example responses are valid JSON.
+          - Rate limits and authentication headers are documented.
+      request_reviews:
+        users:
+          - api-team
+      queue:
+        name: api-docs
+        update_method: merge
+        merge_method: squash
